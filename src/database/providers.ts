@@ -5,6 +5,6 @@ export const databaseProviders = [
   {
     provide: 'DATABASE_CONNECTION',
     useFactory: (): Promise<typeof mongoose> =>
-      mongoose.connect('mongodb+srv://nest:nest@cluster0.iyede5l.mongodb.net/?retryWrites=true&w=majority'),
+      mongoose.connect(proces.env.MONGO_URI),
   },
 ];
