@@ -12,7 +12,7 @@ import { MongooseModule } from '@nestjs/mongoose';
     MongooseModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: async (config: ConfigService) => ({
-        uri:'mongodb+srv://nest:nest@cluster0.iyede5l.mongodb.net/?retryWrites=true&w=majority'
+        uri:''
       }),
       inject: [ConfigService]
     }),
