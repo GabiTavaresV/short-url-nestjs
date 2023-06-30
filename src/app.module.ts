@@ -1,15 +1,22 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config'
+import { ConfigModule, ConfigService } from '@nestjs/config'
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { shortUrlModule } from './shortUrl/shortUrl.module';
+import { ShortUrlModule } from './shortUrl/shortUrl.module';
 import { DbModule } from './database/db.module';
+import { MongooseModule } from '@nestjs/mongoose';
 
 @Module({
   imports: [
-    ConfigModule.forRoot(),
-    shortUrlModule,
-    DbModule
+    ConfigModule.forRoot({ isGlobal: true}),
+    MongooseModule.forRootAsync({
+      imports: [ConfigModule],
+      useFactory: async (config: ConfigService) => ({
+        uri:'mongodb+srv://nest:nest@cluster0.iyede5l.mongodb.net/?retryWrites=true&w=majority'
+      }),
+      inject: [ConfigService]
+    }),
+    ShortUrlModule,
   ],
   controllers: [AppController],
   providers: [AppService],
