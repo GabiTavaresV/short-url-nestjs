@@ -1,6 +1,21 @@
-import * as mongoose from 'mongoose';
+import { Prop, Schema, SchemaFactory} from '@nestjs/mongoose'
+import { HydratedDocument } from 'mongoose';
 
-export const UrlSchema = new mongoose.Schema({
-  url: String,
-  urlOriginal: String,
-});
+
+export type ShortUrlDocument = HydratedDocument<ShortUrl>
+@Schema()
+export class ShortUrl {
+  @Prop()
+  url: string;
+
+  @Prop()
+  code: string;
+
+  @Prop()
+  urlOriginal: string;
+
+  @Prop()
+  numCall: string;
+}
+
+export const ShortUrlSchema = SchemaFactory.createForClass(ShortUrl)
